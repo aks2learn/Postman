@@ -1,0 +1,9 @@
+Task:
+1. Go to  https://reqres.in/
+2. In postman set the url as environment variable 
+3. Run "CREATE USER" with 5 users reading data from csv or json
+4. Run LIST USERS api >>>print in console the user id and corresponding name  (first name + lastname)
+5. Take the first name in the list and give it as input to UPDATE api 
+6. Run a test to check a sting in the output of update response
+7. Export the collection and run it with Newman
+8. Create an html report in Newman
