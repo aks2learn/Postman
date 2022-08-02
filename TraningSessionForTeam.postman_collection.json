@@ -1,0 +1,126 @@
+{
+	"info": {
+		"_postman_id": "b2cdf615-c0c3-49c6-b963-895292e6444b",
+		"name": "TraningSessionForTeam",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21701735"
+	},
+	"item": [
+		{
+			"name": "Create user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{name}}\",\r\n    \"job\": \"leader\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}users",
+					"host": [
+						"{{url}}users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//print the name of all users on the page\r",
+							"\r",
+							"let bodyData = pm.response.json()\r",
+							"console.log(\"Number of users :\"+ bodyData.data.length)\r",
+							"\r",
+							"for(i in bodyData.data)\r",
+							"{\r",
+							"    let name = (bodyData.data[i].first_name +' '+ bodyData.data[i].last_name )\r",
+							"console.log(\"user id: \" +  bodyData.data[i].id, \"name : \" + name)\r",
+							"   \r",
+							"} \r",
+							"let name1 = (bodyData.data[0].first_name +' '+ bodyData.data[0].last_name )\r",
+							"    pm.collectionVariables.set(\"name1\",name1 );\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}users?page=2",
+					"host": [
+						"{{url}}users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Manager\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{name1}}\",\r\n    \"job\": \"Manager\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/users/2",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "name1",
+			"value": ""
+		}
+	]
+}
